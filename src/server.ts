@@ -4,7 +4,7 @@
  * This is not the hosted CorroborateMe MCP server. Tool names, descriptions,
  * and input shapes match production. Handlers only tell clients to use:
  *   https://corroborateme.com/mcp
- *   Authorization: Bearer aa_...
+ *   Authorization: Bearer aa_...  (or MCP OAuth via /.well-known/oauth-protected-resource)
  */
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
@@ -14,7 +14,8 @@ const HOSTED_MCP = "https://corroborateme.com/mcp";
 const stubMessage =
   "This repository is a catalog stub. Connect to " +
   HOSTED_MCP +
-  " with Authorization: Bearer aa_... (mint a key at https://corroborateme.com).";
+  " with Authorization: Bearer aa_... (mint a key at https://corroborateme.com) " +
+  "or MCP OAuth (PRM: https://corroborateme.com/.well-known/oauth-protected-resource).";
 
 function stub() {
   return {

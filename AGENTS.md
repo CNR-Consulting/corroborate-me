@@ -4,7 +4,7 @@ Guidance for AI agents and coding assistants working with CorroborateMe.
 
 ## What CorroborateMe is
 
-CorroborateMe helps agents and apps prove end users: company API keys (`aa_...`) to call the API, human login-links with multi-channel notify, OIDC client registration, encrypted integrations, and budget-aware billing. REST is first-class; MCP is optional.
+CorroborateMe helps agents and apps prove end users: company API keys (`aa_...`) or MCP OAuth to call the API, human login-links with multi-channel notify, OIDC client registration, encrypted integrations, and budget-aware billing. REST is first-class; MCP is optional.
 
 **Live product:** https://corroborateme.com
 
@@ -38,7 +38,12 @@ Legal: https://corroborateme.com/terms · https://corroborateme.com/privacy
 
 ## Connect MCP
 
-Point any MCP client at the live endpoint with a CorroborateMe API key (`aa_...`):
+Point any MCP client at the live endpoint with either:
+
+- CorroborateMe API key (`aa_...`), or
+- MCP OAuth (PRM: https://corroborateme.com/.well-known/oauth-protected-resource)
+
+API key example:
 
 ```json
 {
@@ -53,7 +58,7 @@ Point any MCP client at the live endpoint with a CorroborateMe API key (`aa_...`
 }
 ```
 
-Mint keys via bootstrap + machine-pay, or at https://corroborateme.com after human Pro checkout.
+Mint keys via bootstrap + machine-pay, or at https://corroborateme.com after human Pro checkout. OAuth hosts discover AS metadata from the PRM and complete DCR + browser consent.
 
 ## Machine-readable discovery
 
@@ -65,12 +70,13 @@ Mint keys via bootstrap + machine-pay, or at https://corroborateme.com after hum
 | Interactive API | https://corroborateme.com/swagger |
 | Human docs | https://corroborateme.com/docs |
 | MCP discovery | https://corroborateme.com/.well-known/mcp.json |
+| MCP OAuth PRM | https://corroborateme.com/.well-known/oauth-protected-resource |
 | Sitemap | https://corroborateme.com/sitemap.xml |
 | Security contact | https://corroborateme.com/.well-known/security.txt |
 
 ## Authentication
 
-- **Agents:** `Authorization: Bearer aa_...` (company API key); bootstrap JWT on machine-pay only
+- **Agents / MCP hosts:** `Authorization: Bearer aa_...` (company API key), **or** OAuth access token for `https://corroborateme.com/mcp`; bootstrap JWT on machine-pay only
 - **Humans:** console session after product Sign in; login-link end-users complete one-time links (`cu_...` user ids)
 
 Active Pro required for most keyed work. Prefer live `/api/config` over hardcoded plan details.

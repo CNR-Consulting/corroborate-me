@@ -4,14 +4,14 @@
 
 [![Remote MCP](https://img.shields.io/badge/MCP-remote-555?style=flat-square)](https://corroborateme.com/mcp)
 [![Transport](https://img.shields.io/badge/transport-streamable--http-0ea5e9?style=flat-square)](https://modelcontextprotocol.io)
-[![Auth](https://img.shields.io/badge/auth-Bearer%20aa__-111?style=flat-square)](https://corroborateme.com)
+[![Auth](https://img.shields.io/badge/auth-Bearer%20aa__%20or%20OAuth-111?style=flat-square)](https://corroborateme.com)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](./LICENSE)
 
 CorroborateMe gives agents and apps company API keys and human login-links with multi-channel notify so they can prove who the end user is - plus OIDC client registration, integration secrets, and budget-aware billing. REST is first-class; MCP is optional.
 
 **Live endpoint:** [`https://corroborateme.com/mcp`](https://corroborateme.com/mcp)
 
-> This repository is the **public catalog and schema stub** for directory crawlers. It is not the hosted server. Point MCP clients at the live URL above with a CorroborateMe API key. Running the TypeScript in this repo does not authenticate users or store secrets.
+> This repository is the **public catalog and schema stub** for directory crawlers. It is not the hosted server. Point MCP clients at the live URL above with a CorroborateMe API key (`aa_...`) **or** use MCP OAuth (PRM at [/.well-known/oauth-protected-resource](https://corroborateme.com/.well-known/oauth-protected-resource)). Running the TypeScript in this repo does not authenticate users or store secrets.
 
 **Agent guide:** see [AGENTS.md](./AGENTS.md) for discovery URLs, auth, and MCP connect snippets.
 
@@ -35,7 +35,10 @@ Never commit a real key. Use the `aa_...` placeholder in configs.
 
 ## Connect a client
 
-Transport is **Streamable HTTP**. Send `Authorization: Bearer aa_...` on every request.
+Transport is **Streamable HTTP**. Authenticate with either:
+
+- `Authorization: Bearer aa_...` (API key from console or bootstrap + machine-pay), or
+- **MCP OAuth** - host discovers PRM at [/.well-known/oauth-protected-resource](https://corroborateme.com/.well-known/oauth-protected-resource), registers via DCR, and obtains an access token for `https://corroborateme.com/mcp`
 
 ### Cursor
 
@@ -95,6 +98,7 @@ User or project MCP config:
 Discovery manifests on the product host:
 
 - [/.well-known/mcp.json](https://corroborateme.com/.well-known/mcp.json)
+- [/.well-known/oauth-protected-resource](https://corroborateme.com/.well-known/oauth-protected-resource) (MCP OAuth)
 - [/llms.txt](https://corroborateme.com/llms.txt)
 - [/openapi.json](https://corroborateme.com/openapi.json)
 
@@ -130,7 +134,7 @@ Prefer live [docs](https://corroborateme.com/docs) and [llms-full.txt](https://c
 
 ## Auth and errors
 
-- **401** - missing or invalid `Authorization: Bearer aa_...`
+- **401** - missing or invalid Authorization (API key `aa_...` or MCP OAuth access token)
 - **402 / 429** - plan or quota; follow machine-readable actions from the live API
 - Pricing amounts: read live `GET /api/config` - do not hardcode dollars as eternal truth
 

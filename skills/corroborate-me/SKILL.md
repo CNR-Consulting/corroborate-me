@@ -1,15 +1,15 @@
 ---
 name: corroborate-me
 description: >-
-  Connect to CorroborateMe MCP for company API keys, human login-links,
-  OIDC clients, integrations, and billing. Use when onboarding to
+  Connect to CorroborateMe MCP for company API keys, MCP OAuth, human
+  login-links, OIDC clients, integrations, and billing. Use when onboarding to
   CorroborateMe, minting aa_ keys, creating login-links, or running the
   zero-human bootstrap loop.
 ---
 
 # CorroborateMe MCP
 
-CorroborateMe helps agents and apps prove end users: company API keys (`aa_...`) to call the API, login-links with multi-channel notify, OIDC registration, encrypted integrations, and budget-aware billing.
+CorroborateMe helps agents and apps prove end users: company API keys (`aa_...`) or MCP OAuth to call the API, login-links with multi-channel notify, OIDC registration, encrypted integrations, and budget-aware billing.
 
 **Live endpoint:** https://corroborateme.com/mcp
 
@@ -38,5 +38,7 @@ Or use MCP tools `agent_bootstrap` and `billing_machine_pay`. Read live plan amo
 - https://corroborateme.com/llms-full.txt
 - https://corroborateme.com/docs
 - https://corroborateme.com/openapi.json
+- https://corroborateme.com/.well-known/mcp.json
+- https://corroborateme.com/.well-known/oauth-protected-resource
 
-This catalog repo is a schema stub only. Always call the hosted MCP URL with `Authorization: Bearer aa_...`.
+This catalog repo is a schema stub only. Call the hosted MCP URL with `Authorization: Bearer aa_...` or MCP OAuth (see PRM above).
