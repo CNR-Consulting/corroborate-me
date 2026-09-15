@@ -1,7 +1,7 @@
 {
   "name": "corroborate-me",
   "version": "0.1.0",
-  "description": "Identity for humans, apps, and agents: API keys, login-links, OIDC clients, and billing over remote MCP",
+  "description": "Prove end users to agents and apps: company API keys, login-links, OIDC clients, and billing over remote MCP",
   "author": { "name": "CNR Code", "url": "https://corroborateme.com" },
   "homepage": "https://corroborateme.com",
   "repository": "https://github.com/CNR-Consulting/corroborate-me",

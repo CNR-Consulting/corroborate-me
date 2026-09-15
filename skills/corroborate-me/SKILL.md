@@ -9,7 +9,7 @@ description: >-
 
 # CorroborateMe MCP
 
-CorroborateMe is identity for humans, apps, and agents: company API keys (`aa_...`), login-links with multi-channel notify, OIDC registration, encrypted integrations, and budget-aware billing.
+CorroborateMe helps agents and apps prove end users: company API keys (`aa_...`) to call the API, login-links with multi-channel notify, OIDC registration, encrypted integrations, and budget-aware billing.
 
 **Live endpoint:** https://corroborateme.com/mcp
 

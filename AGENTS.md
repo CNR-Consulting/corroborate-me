@@ -4,7 +4,7 @@ Guidance for AI agents and coding assistants working with CorroborateMe.
 
 ## What CorroborateMe is
 
-CorroborateMe is identity for humans, apps, and agents: company API keys (`aa_...`), human login-links with multi-channel notify, OIDC client registration, encrypted integrations, and budget-aware billing. REST + MCP.
+CorroborateMe helps agents and apps prove end users: company API keys (`aa_...`) to call the API, human login-links with multi-channel notify, OIDC client registration, encrypted integrations, and budget-aware billing. REST is first-class; MCP is optional.
 
 **Live product:** https://corroborateme.com
 

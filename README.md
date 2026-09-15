@@ -1,13 +1,13 @@
 # CorroborateMe
 
-**Identity for humans, apps, and agents.**
+**Prove end users to agents and apps.**
 
 [![Remote MCP](https://img.shields.io/badge/MCP-remote-555?style=flat-square)](https://corroborateme.com/mcp)
 [![Transport](https://img.shields.io/badge/transport-streamable--http-0ea5e9?style=flat-square)](https://modelcontextprotocol.io)
 [![Auth](https://img.shields.io/badge/auth-Bearer%20aa__-111?style=flat-square)](https://corroborateme.com)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](./LICENSE)
 
-CorroborateMe gives agents and apps company API keys, human login-links with multi-channel notify, OIDC client registration, integration secrets, and budget-aware billing. REST is first-class; MCP is optional.
+CorroborateMe gives agents and apps company API keys and human login-links with multi-channel notify so they can prove who the end user is - plus OIDC client registration, integration secrets, and budget-aware billing. REST is first-class; MCP is optional.
 
 **Live endpoint:** [`https://corroborateme.com/mcp`](https://corroborateme.com/mcp)
 
