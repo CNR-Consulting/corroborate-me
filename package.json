@@ -1,0 +1,37 @@
+{
+  "name": "corroborate-me",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Catalog and schema stub for the hosted CorroborateMe remote MCP server",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "corroborate-me",
+    "corroborateme",
+    "identity",
+    "login-link",
+    "remote-mcp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CNR-Consulting/corroborate-me.git"
+  },
+  "homepage": "https://corroborateme.com",
+  "bugs": {
+    "url": "https://github.com/CNR-Consulting/corroborate-me/issues"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

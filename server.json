@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.cnrcode/corroborate-me",
+  "title": "CorroborateMe",
+  "description": "Identity for humans, apps, and agents: API keys, login-links, OIDC clients, and billing over remote MCP",
+  "version": "0.1.0",
+  "websiteUrl": "https://corroborateme.com",
+  "repository": {
+    "url": "https://github.com/CNR-Consulting/corroborate-me",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://corroborateme.com/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "CorroborateMe API key as Bearer aa_... (mint in the console or via bootstrap)",
+          "isRequired": true,
+          "isSecret": true,
+          "placeholder": "Bearer aa_..."
+        }
+      ]
+    }
+  ]
+}

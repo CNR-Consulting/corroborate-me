@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "corroborate-me": {
+      "url": "https://corroborateme.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${CORROBORATE_ME_API_KEY}"
+      }
+    }
+  }
+}

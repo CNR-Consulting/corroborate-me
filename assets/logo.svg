@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="CorroborateMe">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a332c"/>
+      <stop offset="100%" stop-color="#0f1c18"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- Seal ring -->
+  <circle cx="32" cy="32" r="18" fill="none" stroke="#3dba8c" stroke-width="3.2"/>
+  <!-- Corroboration check -->
+  <path
+    fill="none"
+    stroke="#e8c47c"
+    stroke-width="3.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M22 32.5l7.2 7.2L43.5 24"
+  />
+</svg>

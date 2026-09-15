@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.*
+.dev.vars
+*.log
+.DS_Store
+.cursor/
+.mcpregistry_github_token
+.mcpregistry_registry_token
+.mcp-registry-private-key
+mcp-publisher.exe
