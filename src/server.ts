@@ -79,11 +79,12 @@ server.tool(
 
 server.tool(
   "oauth_client_create",
-  "Register an OIDC relying-party client",
+  "Register an OIDC relying-party client (enableEndSession on; post-logout URIs default from redirect origins)",
   {
     name: z.string(),
     redirect_uris: z.array(z.string()),
     public_client: z.boolean().optional(),
+    post_logout_redirect_uris: z.array(z.string()).optional(),
   },
   async () => stub(),
 );

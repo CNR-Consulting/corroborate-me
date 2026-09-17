@@ -114,7 +114,7 @@ Schemas in [`src/server.ts`](src/server.ts) match the hosted server.
 | `billing_machine_pay` | Agent prepaid unlock via Stripe MPP (`sku` optional) |
 | `billing_portal` | Stripe Customer Portal URL |
 | `keys_create` | Mint a new `aa_` API key (shown once) |
-| `oauth_client_create` | Register an OIDC relying-party client |
+| `oauth_client_create` | Register an OIDC relying-party client (RP logout enabled; optional post-logout URIs) |
 | `integration_upsert` | Store encrypted integration secret (Google/Apple/etc.) |
 | `integration_list` | List integrations (prefixes only, no secrets) |
 | `create_login_link` | Mint one-time human login URL with notify methods |
