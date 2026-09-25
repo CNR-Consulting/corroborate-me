@@ -6,6 +6,7 @@
 [![Transport](https://img.shields.io/badge/transport-streamable--http-0ea5e9?style=flat-square)](https://modelcontextprotocol.io)
 [![Auth](https://img.shields.io/badge/auth-Bearer%20aa__%20or%20OAuth-111?style=flat-square)](https://corroborateme.com)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](./LICENSE)
+[![Listed on mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/cnr-consulting/corroborate-me)
 
 CorroborateMe gives agents and apps company API keys and human login-links with multi-channel notify so they can prove who the end user is - plus OIDC client registration, integration secrets, and budget-aware billing. REST is first-class; MCP is optional.
 
