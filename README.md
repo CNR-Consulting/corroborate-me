@@ -136,7 +136,7 @@ Prefer live [docs](https://corroborateme.com/docs) and [llms-full.txt](https://c
 
 - **401** - missing or invalid Authorization (API key `aa_...` or MCP OAuth access token)
 - **402 / 429** - plan or quota; follow machine-readable actions from the live API
-- Pricing amounts: read live `GET /api/config` - do not hardcode dollars as eternal truth
+- Pricing amounts: read live `GET /api/config` - do not hardcode dollars as eternal truth (at time of writing: Pro $5.99/mo, agent prepaid Pro $5.99 per 30 days)
 
 ## Product docs
 
@@ -149,10 +149,10 @@ The CorroborateMe product (Worker, billing, IdP) is closed source. This catalog 
 
 ## Directory listing
 
-Registry name: **`com.cnrcode/corroborate-me`** (domain namespace via [cnrcode.com](https://cnrcode.com/.well-known/mcp-registry-auth)).
+Registry name: **`com.cnrcode/corroborateme`** (domain namespace via [cnrcode.com](https://cnrcode.com/.well-known/mcp-registry-auth)).
 
 1. Ensure `https://cnrcode.com/.well-known/mcp-registry-auth` is deployed.
-2. Set GitHub repo secret **`MCP_PRIVATE_KEY`** (Ed25519 private key hex; never commit it).
+2. Set GitHub repo secret **`MCP_PRIVATE_KEY`** (the existing cnrcode.com Ed25519 private key hex; never commit it).
 3. Push a version tag so [GitHub Actions](.github/workflows/publish-mcp.yml) publishes `server.json` to the [official MCP Registry](https://registry.modelcontextprotocol.io):
 
    ```bash
@@ -160,7 +160,7 @@ Registry name: **`com.cnrcode/corroborate-me`** (domain namespace via [cnrcode.c
    git push origin v0.1.0
    ```
 
-Do not submit to mcp.directory or flip this listing public until maintainers explicitly ask.
+Directories that ingest the official registry (PulseMCP, MCPCentral, MCPFind, Glama connectors) pick the entry up from there. Other directories (Glama server listing, Smithery, mcpservers.org, mcp.directory, MCP Market, McpMux) are submitted by maintainers only. See [docs/directory-listings.md](docs/directory-listings.md).
 
 ### Stdio stub (directory introspection)
 

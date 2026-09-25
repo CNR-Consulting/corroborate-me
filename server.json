@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "com.cnrcode/corroborate-me",
+  "name": "com.cnrcode/corroborateme",
   "title": "CorroborateMe",
-  "description": "Prove end users to agents and apps: company API keys or MCP OAuth, login-links, OIDC clients, and billing over remote MCP",
+  "description": "Prove end users to agents and apps: login-links, OIDC clients, and API keys over remote MCP",
   "version": "0.1.0",
   "websiteUrl": "https://corroborateme.com",
   "repository": {
@@ -16,7 +16,7 @@
       "headers": [
         {
           "name": "Authorization",
-          "description": "CorroborateMe API key as Bearer aa_... (mint in the console or via bootstrap). Hosts may instead use MCP OAuth via /.well-known/oauth-protected-resource.",
+          "description": "Optional API key as Bearer aa_... (mint in the console or via bootstrap). Hosts may use MCP OAuth instead.",
           "isRequired": false,
           "isSecret": true,
           "placeholder": "Bearer aa_..."
