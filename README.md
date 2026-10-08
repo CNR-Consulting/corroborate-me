@@ -116,6 +116,7 @@ Schemas in [`src/server.ts`](src/server.ts) match the hosted server.
 | `billing_portal` | Stripe Customer Portal URL |
 | `keys_create` | Mint a new `aa_` API key (shown once) |
 | `oauth_client_create` | Register an OIDC relying-party client (RP logout enabled; optional post-logout URIs) |
+| `oauth_client_revoke` | Soft-revoke an OIDC relying-party client (stops authorize and token refresh) |
 | `integration_upsert` | Store encrypted integration secret (Google/Apple/etc.) |
 | `integration_list` | List integrations (prefixes only, no secrets) |
 | `create_login_link` | Mint one-time human login URL with notify methods |

@@ -174,6 +174,26 @@ server.tool(
 );
 
 server.tool(
+  "oauth_client_revoke",
+  "Soft-revoke an OIDC relying-party client for the authenticated company. Use this when an app should no longer authorize or refresh tokens. Sets revoked_at, disables the Better Auth oauthClient, and stamps outstanding access/refresh tokens revoked. Requires a company API key (aa_...) or an MCP OAuth access token. Returns ok true when the client was revoked. Missing or already-revoked clients return an error result with code not_found. This does not delete the row; list via REST GET /api/oidc/clients still shows revoked clients. REST equivalent: POST /api/oidc/clients/{clientId}/revoke.",
+  {
+    client_id: z
+      .string()
+      .describe(
+        "OIDC client_id to revoke (the public identifier returned by oauth_client_create, not the internal row id).",
+      ),
+  },
+  {
+    title: "Revoke OIDC client",
+    readOnlyHint: false,
+    destructiveHint: true,
+    idempotentHint: true,
+    openWorldHint: false,
+  },
+  async () => stub(),
+);
+
+server.tool(
   "integration_upsert",
   "Store or replace an encrypted integration secret for a provider such as Google or Apple. Use this before login-link social sign-in needs that provider's credentials. Requires a company API key (aa_...) or an MCP OAuth access token and an active plan. Returns id and prefix (first four and last four characters of the secret). The full secret is not returned. The value is encrypted at rest. A later upsert with the same provider and the same label replaces that stored secret. A different label inserts another row. Each successful call consumes integration quota, including a repeat with the same secret. A missing subscription returns an error result with status 402 (subscription_required). Exhausted quota returns status 429 (quota_exceeded). Use integration_list to see which providers are already stored.",
   {

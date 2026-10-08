@@ -30,7 +30,7 @@ Or use MCP tools `agent_bootstrap` and `billing_machine_pay`. Read live plan amo
 3. `webhook_allowlist_add` for callback prefixes you will use
 4. `create_login_link` for human proof (poll, SSE, webhook, redirect, form_post, postMessage)
 5. `get_login_status` until complete; `retry_login_webhook` if notify failed
-6. Optional: `oauth_client_create`, `integration_upsert` / `integration_list`
+6. Optional: `oauth_client_create` / `oauth_client_revoke`, `integration_upsert` / `integration_list`
 
 ## Discovery
 
