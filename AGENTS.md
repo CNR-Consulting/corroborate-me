@@ -13,7 +13,7 @@ This repository (`corroborate-me`) is the **public MCP catalog stub** for direct
 ## Start here
 
 1. Read the curated site index: https://corroborateme.com/llms.txt
-2. **Zero-human path:** bootstrap -> machine-pay -> company key
+2. **Zero-human path:** bootstrap (email OTP) -> machine-pay -> company key
 3. Full agent guide: https://corroborateme.com/llms-full.txt
 4. Human integrator docs: https://corroborateme.com/docs
 
@@ -23,6 +23,11 @@ This repository (`corroborate-me`) is the **public MCP catalog stub** for direct
 curl -s -X POST https://corroborateme.com/api/agents/bootstrap \
   -H "Content-Type: application/json" \
   -d '{"contact_email":"agent@example.com"}'
+# -> 202 verification_required (6-digit code emailed)
+
+curl -s -X POST https://corroborateme.com/api/agents/bootstrap \
+  -H "Content-Type: application/json" \
+  -d '{"contact_email":"agent@example.com","code":"123456"}'
 # -> bootstrapToken
 
 curl -s -X POST https://corroborateme.com/api/billing/machine-pay \

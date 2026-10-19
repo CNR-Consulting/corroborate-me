@@ -109,7 +109,7 @@ Schemas in [`src/server.ts`](src/server.ts) match the hosted server.
 
 | Tool | What it does |
 |------|----------------|
-| `agent_bootstrap` | Start humanless company onboarding (bootstrap token flow) |
+| `agent_bootstrap` | Start humanless company onboarding (email OTP, then bootstrap token) |
 | `budget_get` | Remaining quotas for the authenticated company |
 | `billing_checkout` | Create Stripe Checkout URL for human Pro |
 | `billing_machine_pay` | Agent prepaid unlock via Stripe MPP (`sku` optional) |
@@ -126,7 +126,7 @@ Schemas in [`src/server.ts`](src/server.ts) match the hosted server.
 
 ## Typical agent loop
 
-1. Bootstrap a company (`agent_bootstrap`) and unlock prepaid Pro (`billing_machine_pay`) when needed.
+1. Bootstrap with email OTP (`agent_bootstrap` or REST `/api/agents/bootstrap`), then unlock prepaid Pro (`billing_machine_pay`) when needed.
 2. Mint a key with `keys_create` if you need a durable `aa_...` secret.
 3. Allowlist callback prefixes (`webhook_allowlist_add`), then `create_login_link` for human proof.
 4. Poll with `get_login_status` (or wait for webhook / redirect / postMessage).

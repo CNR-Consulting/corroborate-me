@@ -31,27 +31,32 @@ export const server = new McpServer({
 
 server.tool(
   "agent_bootstrap",
-  "Show how to start zero-human company onboarding. This call does not create a company, send email, or mint a bootstrap token or an aa_ key. MCP requires a company API key (aa_...) or an MCP OAuth access token before any tool runs. Returns message, path (/api/agents/bootstrap), body (company_name and contact_email echoed), product, and keyPrefix. The unauthenticated REST POST to that path returns bootstrapToken, expiresIn 900 (about 15 minutes), and next billing paths, and it does not mint the aa_ key. After that REST call, POST /api/billing/machine-pay with the bootstrap token for an agent prepaid unlock, or POST /api/billing/checkout when a human will pay in the browser.",
+  "Start zero-human company onboarding from a contact email. Does not charge or create a company. Step 1: call with contact_email. The result has verificationRequired=true and a 6-digit code is emailed (10 minutes, single use). Step 2: call again with contact_email and code. Returns bootstrapToken, expiresIn (~15 minutes), and next billing paths. When you have no aa_ key yet, use REST POST /api/agents/bootstrap instead: MCP requires Authorization Bearer aa_... or an MCP OAuth access token before any tool runs. After bootstrap, POST /api/billing/machine-pay (or billing_machine_pay / billing_checkout) with the bootstrap token; the company and aa_ secret are minted on settle. Optional company_name is stored on the bootstrap JWT for the company display name.",
   {
+    contact_email: z
+      .string()
+      .describe(
+        "Contact email. Required. Disposable domains are rejected. A verification code is sent on the first call.",
+      ),
+    code: z
+      .string()
+      .optional()
+      .describe(
+        "6-digit code from the verification email. Omit on the first call; required on the second.",
+      ),
     company_name: z
       .string()
       .optional()
       .describe(
-        "Optional display name echoed in body for POST /api/agents/bootstrap. This tool does not store it.",
-      ),
-    contact_email: z
-      .string()
-      .optional()
-      .describe(
-        "Optional contact email echoed in body. No message is sent.",
+        "Optional display name stored on the bootstrap JWT for the company created at pay time.",
       ),
   },
   {
-    title: "Show company bootstrap steps",
-    readOnlyHint: true,
+    title: "Bootstrap company (email OTP)",
+    readOnlyHint: false,
     destructiveHint: false,
-    idempotentHint: true,
-    openWorldHint: false,
+    idempotentHint: false,
+    openWorldHint: true,
   },
   async () => stub(),
 );

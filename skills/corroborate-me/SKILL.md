@@ -17,7 +17,7 @@ Prefer REST + live docs when they are clearer; MCP is optional.
 
 ## Zero-human bootstrap
 
-1. `POST https://corroborateme.com/api/agents/bootstrap` with optional company/contact fields -> bootstrap token
+1. `POST https://corroborateme.com/api/agents/bootstrap` with `contact_email` -> 202 + emailed 6-digit code; POST again with `code` -> bootstrap token
 2. `POST https://corroborateme.com/api/billing/machine-pay` with `Authorization: Bearer <bootstrapToken>` and optional `{ "sku": "pro_prepaid_30d" }`
 3. When MPP unlock succeeds, response includes `secret` (`aa_...`)
 
