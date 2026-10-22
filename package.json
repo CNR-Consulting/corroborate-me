@@ -1,6 +1,6 @@
 {
   "name": "corroborate-me",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "private": true,
   "description": "Catalog and schema stub for the hosted CorroborateMe remote MCP server",
   "type": "module",

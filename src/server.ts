@@ -5,7 +5,8 @@
  * shapes match production. Descriptions describe that hosted behavior.
  * Handlers only tell clients to use:
  *   https://corroborateme.com/mcp
- *   Authorization: Bearer aa_...  (or MCP OAuth via /.well-known/oauth-protected-resource)
+ *   Authorization: Bearer aa_...  (or MCP OAuth via /.well-known/oauth-protected-resource;
+ *   binding a new OAuth client requires that aa_ key or a console member session)
  */
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
@@ -16,7 +17,8 @@ const stubMessage =
   "This repository is a catalog stub. Connect to " +
   HOSTED_MCP +
   " with Authorization: Bearer aa_... (mint a key at https://corroborateme.com) " +
-  "or MCP OAuth (PRM: https://corroborateme.com/.well-known/oauth-protected-resource).";
+  "or MCP OAuth after binding the client with that aa_ key " +
+  "(PRM: https://corroborateme.com/.well-known/oauth-protected-resource).";
 
 function stub() {
   return {
@@ -26,7 +28,7 @@ function stub() {
 
 export const server = new McpServer({
   name: "corroborate-me",
-  version: "0.1.0",
+  version: "0.1.4",
 });
 
 server.tool(
