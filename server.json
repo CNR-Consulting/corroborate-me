@@ -3,7 +3,7 @@
   "name": "com.cnrcode/corroborateme",
   "title": "CorroborateMe",
   "description": "Prove end users to agents and apps: login-links, OIDC clients, and API keys over remote MCP",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "websiteUrl": "https://corroborateme.com",
   "repository": {
     "url": "https://github.com/CNR-Consulting/corroborate-me",
@@ -16,7 +16,7 @@
       "headers": [
         {
           "name": "Authorization",
-          "description": "Optional API key as Bearer aa_... (mint in the console or via bootstrap). Hosts may use MCP OAuth instead.",
+          "description": "Optional API key as Bearer aa_... (mint in the console or via bootstrap). Required to bind a new MCP OAuth client; hosts may then use MCP OAuth instead of pasting the key.",
           "isRequired": false,
           "isSecret": true,
           "placeholder": "Bearer aa_..."

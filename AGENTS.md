@@ -46,7 +46,7 @@ Legal: https://corroborateme.com/terms · https://corroborateme.com/privacy
 Point any MCP client at the live endpoint with either:
 
 - CorroborateMe API key (`aa_...`), or
-- MCP OAuth (PRM: https://corroborateme.com/.well-known/oauth-protected-resource)
+- MCP OAuth (PRM: https://corroborateme.com/.well-known/oauth-protected-resource). Get an `aa_...` key first to bind a new OAuth client.
 
 API key example:
 
@@ -63,7 +63,7 @@ API key example:
 }
 ```
 
-Mint keys via bootstrap + machine-pay, or at https://corroborateme.com after human Pro checkout. OAuth hosts discover AS metadata from the PRM and complete DCR + browser consent.
+Mint keys via bootstrap + machine-pay, or at https://corroborateme.com after human Pro checkout. OAuth hosts discover AS metadata from the PRM and complete DCR. Binding a new OAuth client requires proof of company control on `POST /api/oidc/start`: `Authorization: Bearer aa_...` (company from the key; humanless path) or a console member session plus `company_id`. A bare `company_id` is rejected (401). Then complete browser consent.
 
 ## Machine-readable discovery
 
@@ -81,7 +81,7 @@ Mint keys via bootstrap + machine-pay, or at https://corroborateme.com after hum
 
 ## Authentication
 
-- **Agents / MCP hosts:** `Authorization: Bearer aa_...` (company API key), **or** OAuth access token for `https://corroborateme.com/mcp`; bootstrap JWT on machine-pay only
+- **Agents / MCP hosts:** `Authorization: Bearer aa_...` (company API key), **or** OAuth access token for `https://corroborateme.com/mcp` (new OAuth clients must be bound with an `aa_...` key or console session + `company_id` first); bootstrap JWT on machine-pay only
 - **Humans:** console session after product Sign in; login-link end-users complete one-time links (`cu_...` user ids)
 
 Active Pro required for most keyed work. Prefer live `/api/config` over hardcoded plan details.

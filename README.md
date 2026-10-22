@@ -12,7 +12,7 @@ CorroborateMe gives agents and apps company API keys and human login-links with 
 
 **Live endpoint:** [`https://corroborateme.com/mcp`](https://corroborateme.com/mcp)
 
-> This repository is the **public catalog and schema stub** for directory crawlers. It is not the hosted server. Point MCP clients at the live URL above with a CorroborateMe API key (`aa_...`) **or** use MCP OAuth (PRM at [/.well-known/oauth-protected-resource](https://corroborateme.com/.well-known/oauth-protected-resource)). Running the TypeScript in this repo does not authenticate users or store secrets.
+> This repository is the **public catalog and schema stub** for directory crawlers. It is not the hosted server. Point MCP clients at the live URL above with a CorroborateMe API key (`aa_...`) **or** MCP OAuth (PRM at [/.well-known/oauth-protected-resource](https://corroborateme.com/.well-known/oauth-protected-resource)). Binding a new OAuth client requires that `aa_...` key first (or a console member session). Running the TypeScript in this repo does not authenticate users or store secrets.
 
 **Agent guide:** see [AGENTS.md](./AGENTS.md) for discovery URLs, auth, and MCP connect snippets.
 
@@ -39,7 +39,7 @@ Never commit a real key. Use the `aa_...` placeholder in configs.
 Transport is **Streamable HTTP**. Authenticate with either:
 
 - `Authorization: Bearer aa_...` (API key from console or bootstrap + machine-pay), or
-- **MCP OAuth** - host discovers PRM at [/.well-known/oauth-protected-resource](https://corroborateme.com/.well-known/oauth-protected-resource), registers via DCR, and obtains an access token for `https://corroborateme.com/mcp`
+- **MCP OAuth** - get an `aa_...` key first (bootstrap + machine-pay, or console). Host discovers PRM at [/.well-known/oauth-protected-resource](https://corroborateme.com/.well-known/oauth-protected-resource), registers via DCR, then binds the client on `POST /api/oidc/start` with `Authorization: Bearer aa_...` (company from the key) or a console member session plus `company_id` before browser consent. A bare `company_id` is rejected (401).
 
 ### Cursor
 
@@ -158,8 +158,8 @@ Registry name: **`com.cnrcode/corroborateme`** (domain namespace via [cnrcode.co
 3. Push a version tag so [GitHub Actions](.github/workflows/publish-mcp.yml) publishes `server.json` to the [official MCP Registry](https://registry.modelcontextprotocol.io):
 
    ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
+   git tag v0.1.4
+   git push origin v0.1.4
    ```
 
 Directories that ingest the official registry (PulseMCP, MCPCentral, MCPFind, Glama connectors) pick the entry up from there. Other directories (Glama server listing, Smithery, mcpservers.org, mcp.directory, MCP Market, McpMux) are submitted by maintainers only. See [docs/directory-listings.md](docs/directory-listings.md).
