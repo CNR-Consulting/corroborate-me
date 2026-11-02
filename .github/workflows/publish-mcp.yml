@@ -19,12 +19,12 @@ jobs:
         run: |
           curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
 
-      - name: Authenticate to MCP Registry (cnrcode.com)
+      - name: Authenticate to MCP Registry (corroborateme.com DNS)
         env:
-          MCP_PRIVATE_KEY: ${{ secrets.MCP_PRIVATE_KEY }}
+          MCP_REGISTRY_KEY_CORROBORATEME: ${{ secrets.MCP_REGISTRY_KEY_CORROBORATEME }}
         run: |
-          KEY="$(printf '%s' "$MCP_PRIVATE_KEY" | tr -d '[:space:]')"
-          ./mcp-publisher login http --domain cnrcode.com --private-key "$KEY"
+          KEY="$(printf '%s' "$MCP_REGISTRY_KEY_CORROBORATEME" | tr -d '[:space:]')"
+          ./mcp-publisher login dns --domain corroborateme.com --private-key "$KEY"
 
       - name: Publish server.json
         run: ./mcp-publisher publish

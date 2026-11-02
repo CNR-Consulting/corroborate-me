@@ -2,13 +2,13 @@
 
 How CorroborateMe gets listed in MCP directories. Mirrors the Tillpad catalog repo. Maintainers only.
 
-Registry name: `com.cnrcode/corroborateme`. Remote MCP: `https://corroborateme.com/mcp` (Streamable HTTP; Bearer `aa_...` or MCP OAuth after binding with an `aa_` key).
+Registry name: `com.corroborateme/corroborate-me`. Remote MCP: `https://corroborateme.com/mcp` (Streamable HTTP; Bearer `aa_...` or MCP OAuth after binding with an `aa_` key).
 
 ## 1. Official MCP Registry
 
-1. Confirm the `MCP_PRIVATE_KEY` repo secret holds the existing cnrcode.com key (same key as the Tillpad catalog repo).
-2. After this branch merges, push tag `v0.1.4` (must match `server.json` version and be higher than the last published). The workflow runs `mcp-publisher login http --domain cnrcode.com` then `mcp-publisher publish`.
-3. Verify: `curl -s "https://registry.modelcontextprotocol.io/v0/servers?search=com.cnrcode/corroborateme"`.
+1. Confirm the `MCP_REGISTRY_KEY_CORROBORATEME` repo secret holds the corroborateme.com Ed25519 key, and that `corroborateme.com` has the TXT record `v=MCPv1; k=ed25519; p=<public key>`. Versions up to 0.1.5 were published as `com.cnrcode/corroborateme` (HTTP auth on cnrcode.com).
+2. After this branch merges, push tag `v0.2.0` (must match `server.json` version and be higher than the last published). The workflow runs `mcp-publisher login dns --domain corroborateme.com` then `mcp-publisher publish`.
+3. Verify: `curl -s "https://registry.modelcontextprotocol.io/v0/servers?search=com.corroborateme/corroborate-me"`.
 
 The registry limits `description` to 100 characters. Keep `server.json` under that. Merging to `main` alone does not publish; a `v*` tag push or manual `workflow_dispatch` is required.
 
@@ -26,11 +26,11 @@ The registry limits `description` to 100 characters. Keep `server.json` under th
 | Environment variables JSON schema | default (`{"properties":{},"required":[],"type":"object"}`) |
 | Placeholder parameters | `{}` |
 
-4. **Deploy**, wait for build + introspection (13 tools), then **Make Release** (`0.1.4`).
+4. **Deploy**, wait for build + introspection (13 tools), then **Make Release** (`0.2.0`).
 
 ## 3. Glama hosted connector
 
-Glama imports connectors from the official registry, so `https://glama.ai/mcp/connectors/com.cnrcode/corroborateme` should appear after step 1. To claim it, use **Claim ownership** on that page and publish the claim token JSON Glama shows at `https://corroborateme.com/.well-known/glama.json` (product change, separate PR) or as a DNS TXT record.
+Glama imports connectors from the official registry, so `https://glama.ai/mcp/connectors/com.corroborateme/corroborate-me` should appear after step 1. To claim it, use **Claim ownership** on that page and publish the claim token JSON Glama shows at `https://corroborateme.com/.well-known/glama.json` (product change, separate PR) or as a DNS TXT record.
 
 ## Local verify
 

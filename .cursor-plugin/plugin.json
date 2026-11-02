@@ -1,6 +1,6 @@
 {
   "name": "corroborate-me",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Prove end users to agents and apps: company API keys, MCP OAuth (bind with aa_ key), login-links, OIDC clients, and billing over remote MCP",
   "author": { "name": "CNR Consulting", "url": "https://corroborateme.com" },
   "homepage": "https://corroborateme.com",
