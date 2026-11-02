@@ -26,7 +26,7 @@ The registry limits `description` to 100 characters. Keep `server.json` under th
 | Environment variables JSON schema | default (`{"properties":{},"required":[],"type":"object"}`) |
 | Placeholder parameters | `{}` |
 
-4. **Deploy**, wait for build + introspection (13 tools), then **Make Release** (`0.1.4`).
+4. **Deploy**, wait for build + introspection (13 tools), then **Make Release** (`0.1.6`).
 
 ## 3. Glama hosted connector
 
