@@ -158,8 +158,8 @@ Registry name: **`com.corroborateme/corroborate-me`** (domain namespace via DNS 
 3. Push a version tag so [GitHub Actions](.github/workflows/publish-mcp.yml) publishes `server.json` to the [official MCP Registry](https://registry.modelcontextprotocol.io):
 
    ```bash
-   git tag v0.1.6
-   git push origin v0.1.6
+   git tag v0.2.0
+   git push origin v0.2.0
    ```
 
 Directories that ingest the official registry (PulseMCP, MCPCentral, MCPFind, Glama connectors) pick the entry up from there. Other directories (Glama server listing, Smithery, mcpservers.org, mcp.directory, MCP Market, McpMux) are submitted by maintainers only. See [docs/directory-listings.md](docs/directory-listings.md).
