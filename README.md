@@ -153,13 +153,15 @@ The CorroborateMe product (Worker, billing, IdP) is closed source. This catalog 
 
 Registry name: **`com.corroborateme/corroborate-me`** (domain namespace via DNS auth on corroborateme.com). Older versions were published as `com.cnrcode/corroborateme`.
 
+The registry remote is [`https://corroborateme.com/mcp/`](https://corroborateme.com/mcp/). The Worker serves that path as the same MCP endpoint as [`https://corroborateme.com/mcp`](https://corroborateme.com/mcp) (no redirect). Client install snippets in this repo stay on the no-slash URL. `server.json` cannot use the no-slash URL: deprecated `com.cnrcode/corroborateme` still claims it, and registry entries cannot be deleted.
+
 1. Ensure the TXT record `v=MCPv1; k=ed25519; p=<public key>` is on the `corroborateme.com` apex.
 2. Set GitHub repo secret **`MCP_REGISTRY_KEY_CORROBORATEME`** (Ed25519 private key hex; never commit it or write it to a file).
 3. Push a version tag so [GitHub Actions](.github/workflows/publish-mcp.yml) publishes `server.json` to the [official MCP Registry](https://registry.modelcontextprotocol.io):
 
    ```bash
-   git tag v0.2.0
-   git push origin v0.2.0
+   git tag v0.2.1
+   git push origin v0.2.1
    ```
 
 Directories that ingest the official registry (PulseMCP, MCPCentral, MCPFind, Glama connectors) pick the entry up from there. Other directories (Glama server listing, Smithery, mcpservers.org, mcp.directory, MCP Market, McpMux) are submitted by maintainers only. See [docs/directory-listings.md](docs/directory-listings.md).

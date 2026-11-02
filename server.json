@@ -3,7 +3,7 @@
   "name": "com.corroborateme/corroborate-me",
   "title": "CorroborateMe",
   "description": "Prove end users to agents and apps: login-links, OIDC clients, and API keys over remote MCP",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "websiteUrl": "https://corroborateme.com",
   "repository": {
     "url": "https://github.com/CNR-Consulting/corroborate-me",
@@ -12,7 +12,7 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://corroborateme.com/mcp",
+      "url": "https://corroborateme.com/mcp/",
       "headers": [
         {
           "name": "Authorization",
