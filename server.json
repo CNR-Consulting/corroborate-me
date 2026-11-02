@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "com.cnrcode/corroborateme",
+  "name": "com.corroborateme/corroborate-me",
   "title": "CorroborateMe",
   "description": "Prove end users to agents and apps: login-links, OIDC clients, and API keys over remote MCP",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "websiteUrl": "https://corroborateme.com",
   "repository": {
     "url": "https://github.com/CNR-Consulting/corroborate-me",

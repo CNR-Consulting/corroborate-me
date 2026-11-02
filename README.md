@@ -151,15 +151,15 @@ The CorroborateMe product (Worker, billing, IdP) is closed source. This catalog 
 
 ## Directory listing
 
-Registry name: **`com.cnrcode/corroborateme`** (domain namespace via [cnrcode.com](https://cnrcode.com/.well-known/mcp-registry-auth)).
+Registry name: **`com.corroborateme/corroborate-me`** (domain namespace via DNS auth on corroborateme.com). Older versions were published as `com.cnrcode/corroborateme`.
 
-1. Ensure `https://cnrcode.com/.well-known/mcp-registry-auth` is deployed.
-2. Set GitHub repo secret **`MCP_PRIVATE_KEY`** (the existing cnrcode.com Ed25519 private key hex; never commit it).
+1. Ensure the TXT record `v=MCPv1; k=ed25519; p=<public key>` is on the `corroborateme.com` apex.
+2. Set GitHub repo secret **`MCP_REGISTRY_KEY_CORROBORATEME`** (Ed25519 private key hex; never commit it or write it to a file).
 3. Push a version tag so [GitHub Actions](.github/workflows/publish-mcp.yml) publishes `server.json` to the [official MCP Registry](https://registry.modelcontextprotocol.io):
 
    ```bash
-   git tag v0.1.4
-   git push origin v0.1.4
+   git tag v0.1.6
+   git push origin v0.1.6
    ```
 
 Directories that ingest the official registry (PulseMCP, MCPCentral, MCPFind, Glama connectors) pick the entry up from there. Other directories (Glama server listing, Smithery, mcpservers.org, mcp.directory, MCP Market, McpMux) are submitted by maintainers only. See [docs/directory-listings.md](docs/directory-listings.md).
