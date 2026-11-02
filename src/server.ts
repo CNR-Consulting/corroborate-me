@@ -28,7 +28,7 @@ function stub() {
 
 export const server = new McpServer({
   name: "corroborate-me",
-  version: "0.1.4",
+  version: "0.1.5",
 });
 
 server.tool(
