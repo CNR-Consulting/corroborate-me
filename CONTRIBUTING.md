@@ -8,7 +8,7 @@ The hosted product is not developed here. Pull requests that add production Work
 
 - Doc fixes (install snippets, tool descriptions, links)
 - Schema drift: tool **names**, descriptions, and input shapes must match the hosted server at `https://corroborateme.com/mcp`
-- Registry metadata in `server.json` (keep `remotes[0].url` on the production endpoint; registry name is `com.corroborateme/corroborate-me`)
+- Registry metadata in `server.json` (`remotes[0].url` is `https://corroborateme.com/mcp/`, the same production MCP route as `https://corroborateme.com/mcp`; registry name is `com.corroborateme/corroborate-me`)
 
 ## MCP Registry publish
 
