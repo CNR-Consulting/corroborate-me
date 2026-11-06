@@ -152,7 +152,7 @@ Confidential consumer apps that sign users in through CorroborateMe should open 
 3. Open `continuation_url` in a popup or top-level redirect on the CorroborateMe origin (no iframe).
 4. On return (`type=corroborateme.password_management`), clear your local session and start a fresh login when `reauth_required` is true.
 
-Revocation after success: CorroborateMe Continue-as cookies and Better Auth bridge sessions for that user are invalidated, and that user's OAuth grant rows are stamped revoked. Offline-validated access JWTs may still work until expiry; your app must clear its own session. See live OpenAPI tag **Account password**.
+Revocation after success: CorroborateMe Continue-as cookies and Better Auth bridge sessions for that user are invalidated, and that user's OAuth grant rows are stamped revoked. Offline-validated access JWTs may still work until expiry; your app must clear your own session. **OpenAPI:** expect the **Account password** tag (or equivalent) with full schemas when the feature is live; current production `openapi.json` may lag—use [Swagger](https://corroborateme.com/swagger) after deploy.
 
 ## Auth and errors
 
