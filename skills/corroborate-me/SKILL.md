@@ -32,6 +32,10 @@ Or use MCP tools `agent_bootstrap` and `billing_machine_pay`. Read live plan amo
 5. `get_login_status` until complete; `retry_login_webhook` if notify failed
 6. Optional: `oauth_client_create` / `oauth_client_revoke`, `integration_upsert` / `integration_list`
 
+For **email + password** completion on the hosted login-link page, use the REST routes in OpenAPI (`POST /api/login-links/{id}/password-login`, `POST /api/login-links/{id}/set-password`); there is no MCP tool for that path.
+
+For confidential OIDC apps that need settings **Change password**: backend `POST /api/account/password/start` (Bearer **user** access token + `client_id` / `client_secret` / `return_uri` / optional `state` / `display`), open hosted `continuation_url`, then clear the app session when `reauth_required`. Never put `client_secret` in browser code. Requires hosted password-management release; use live [openapi.json](https://corroborateme.com/openapi.json) (**Account password**, Worker **0.2.2**) and [docs](https://corroborateme.com/docs).
+
 ## Discovery
 
 - https://corroborateme.com/llms.txt

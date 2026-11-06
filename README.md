@@ -132,7 +132,27 @@ Schemas in [`src/server.ts`](src/server.ts) match the hosted server.
 4. Poll with `get_login_status` (or wait for webhook / redirect / postMessage).
 5. Use REST or MCP for keys, OIDC clients, and integrations as needed.
 
+### Login-link password completion (REST only)
+
+There is **no MCP tool** for password flows. The IdP login page can complete a session with **email + password** for registered users. OpenAPI documents:
+
+- `POST /api/login-links/{id}/password-login` — registered-user password sign-in (see [Swagger](https://corroborateme.com/swagger) for the request body)
+- `POST /api/login-links/{id}/set-password` — set password with a ticket, then complete the session (see Swagger)
+
+Company API keys (`aa_...`) and MCP tool names are unchanged.
+
 Prefer live [docs](https://corroborateme.com/docs) and [llms-full.txt](https://corroborateme.com/llms-full.txt) for recipes that may change.
+
+## OIDC apps: hosted Change password
+
+Confidential consumer apps that sign users in through CorroborateMe should open CorroborateMe's hosted password page from a settings **Change password** button. Passwords never pass through your app.
+
+1. Register the client with exact `password_return_uris` (separate from authorize redirects).
+2. Your **backend** calls `POST https://corroborateme.com/api/account/password/start` with `Authorization: Bearer <user access token>` and body `{ "client_id", "client_secret", "return_uri", "state", "display" }`. Keep `client_secret` on the server only.
+3. Open `continuation_url` in a popup or top-level redirect on the CorroborateMe origin (no iframe).
+4. On return (`type=corroborateme.password_management`), clear your local session and start a fresh login when `reauth_required` is true.
+
+Revocation after success: CorroborateMe Continue-as cookies and Better Auth bridge sessions for that user are invalidated, and that user's OAuth grant rows are stamped revoked. Offline-validated access JWTs may still work until expiry; your app must clear your own session. **OpenAPI:** see **Account password** in [openapi.json](https://corroborateme.com/openapi.json) (Worker **0.2.2**); [Swagger](https://corroborateme.com/swagger) for interactive reference.
 
 ## Auth and errors
 
@@ -160,15 +180,15 @@ The registry remote is [`https://corroborateme.com/mcp/`](https://corroborateme.
 3. Push a version tag so [GitHub Actions](.github/workflows/publish-mcp.yml) publishes `server.json` to the [official MCP Registry](https://registry.modelcontextprotocol.io):
 
    ```bash
-   git tag v0.2.1
-   git push origin v0.2.1
+   git tag v0.2.2
+   git push origin v0.2.2
    ```
 
 Directories that ingest the official registry (PulseMCP, MCPCentral, MCPFind, Glama connectors) pick the entry up from there. Other directories (Glama server listing, Smithery, mcpservers.org, mcp.directory, MCP Market, McpMux) are submitted by maintainers only. See [docs/directory-listings.md](docs/directory-listings.md).
 
 ### Stdio stub (directory introspection)
 
-This repo includes a **stdio catalog stub** (`src/main.ts`) so directories can build a container, start the process, and introspect the **13** tool definitions. It does not implement auth or billing - clients still connect to the hosted endpoint above.
+This repo includes a **stdio catalog stub** (`src/main.ts`) so directories can build a container, start the process, and introspect the **14** tool definitions. It does not implement auth or billing - clients still connect to the hosted endpoint above.
 
 Local verify:
 

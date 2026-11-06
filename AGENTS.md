@@ -41,6 +41,17 @@ Or use MCP tools `agent_bootstrap` and `billing_machine_pay`. Read live amounts 
 
 Legal: https://corroborateme.com/terms · https://corroborateme.com/privacy
 
+## OIDC relying-party password change
+
+For confidential apps with a backend/BFF:
+
+1. Register `password_return_uris` on client create (exact match for the management return URL).
+2. Backend: `POST /api/account/password/start` with Bearer user access token + JSON `client_id` / `client_secret` / `return_uri` / optional `state` / `display`. Never expose `client_secret` to the browser.
+3. Open the hosted `continuation_url`; user proves ownership and sets a new password on CorroborateMe.
+4. Handle return (`type=corroborateme.password_management`); if `reauth_required`, clear the app session and re-login.
+
+Use live **`https://corroborateme.com/openapi.json`** for **Account password** request and response bodies on `POST /api/account/password/start` (hosted password-management release; Worker OpenAPI **0.2.2**). Do not use MCP-audience tokens, `aa_` keys, or your app session JWT as the bearer for that start call.
+
 ## Connect MCP
 
 Point any MCP client at the live endpoint with either:
@@ -88,7 +99,7 @@ Active Pro required for most keyed work. Prefer live `/api/config` over hardcode
 
 ## Tool schemas
 
-Input schemas for all **13** MCP tools are in:
+Input schemas for all **14** MCP tools are in:
 
 - https://corroborateme.com/.well-known/mcp.json
 - [`src/server.ts`](src/server.ts) in this repo (Zod stubs matching production)
