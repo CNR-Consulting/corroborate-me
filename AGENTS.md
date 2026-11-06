@@ -50,7 +50,7 @@ For confidential apps with a backend/BFF:
 3. Open the hosted `continuation_url`; user proves ownership and sets a new password on CorroborateMe.
 4. Handle return (`type=corroborateme.password_management`); if `reauth_required`, clear the app session and re-login.
 
-Do not treat MCP-audience tokens, `aa_` keys, or your app session JWT as the start bearer. **Contract detail** tracks Gabe’s app deploy: today’s live `openapi.json` lists only login-link password paths; expect **`Account password`** (or the equivalent tag) and request/response bodies after that release. Until then rely on https://corroborateme.com/docs and the app team.
+Use live **`https://corroborateme.com/openapi.json`** for **Account password** request and response bodies on `POST /api/account/password/start` (hosted password-management release; Worker OpenAPI **0.2.2**). Do not use MCP-audience tokens, `aa_` keys, or your app session JWT as the bearer for that start call.
 
 ## Connect MCP
 
