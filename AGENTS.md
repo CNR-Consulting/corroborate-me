@@ -88,7 +88,7 @@ Active Pro required for most keyed work. Prefer live `/api/config` over hardcode
 
 ## Tool schemas
 
-Input schemas for all **13** MCP tools are in:
+Input schemas for all **14** MCP tools are in:
 
 - https://corroborateme.com/.well-known/mcp.json
 - [`src/server.ts`](src/server.ts) in this repo (Zod stubs matching production)

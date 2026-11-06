@@ -30,6 +30,8 @@ Or use MCP tools `agent_bootstrap` and `billing_machine_pay`. Read live plan amo
 3. `webhook_allowlist_add` for callback prefixes you will use
 4. `create_login_link` for human proof (poll, SSE, webhook, redirect, form_post, postMessage)
 5. `get_login_status` until complete; `retry_login_webhook` if notify failed
+
+For **email + password** completion on the hosted login-link page, use the REST routes in OpenAPI (`POST /api/login-links/{id}/password-login`, `POST /api/login-links/{id}/set-password`); there is no MCP tool for that path.
 6. Optional: `oauth_client_create` / `oauth_client_revoke`, `integration_upsert` / `integration_list`
 
 ## Discovery

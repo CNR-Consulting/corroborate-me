@@ -7,10 +7,10 @@ Registry name: `com.corroborateme/corroborate-me`. Remote MCP: `https://corrobor
 ## 1. Official MCP Registry
 
 1. Confirm the `MCP_REGISTRY_KEY_CORROBORATEME` repo secret holds the corroborateme.com Ed25519 key, and that `corroborateme.com` has the TXT record `v=MCPv1; k=ed25519; p=<public key>`. Versions up to 0.1.5 were published as `com.cnrcode/corroborateme` (HTTP auth on cnrcode.com).
-2. After this branch merges, push tag `v0.2.1` (must match `server.json` version and be higher than the last published). The workflow runs `mcp-publisher login dns --domain corroborateme.com` then `mcp-publisher publish`.
+2. After this branch merges, push tag `v0.2.2` (must match `server.json` version and be higher than the last published). The workflow runs `mcp-publisher login dns --domain corroborateme.com` then `mcp-publisher publish`.
 3. Verify: `curl -s "https://registry.modelcontextprotocol.io/v0/servers?search=com.corroborateme/corroborate-me"`.
 
-The product server card at `https://corroborateme.com/.well-known/mcp/server-card.json` is served by the Worker, not by this catalog. When that Worker changes, set the card `version` to `0.2.1` and its remote `url` to `https://corroborateme.com/mcp/`. This repository does not contain that file.
+The product server card at `https://corroborateme.com/.well-known/mcp/server-card.json` is served by the Worker, not by this catalog. When that Worker changes, set the card `version` to `0.2.2` and its remote `url` to `https://corroborateme.com/mcp/`. This repository does not contain that file.
 The registry limits `description` to 100 characters. Keep `server.json` under that. Merging to `main` alone does not publish; a `v*` tag push or manual `workflow_dispatch` is required.
 
 ## 2. Glama server listing (Dockerfile)
@@ -27,7 +27,7 @@ The registry limits `description` to 100 characters. Keep `server.json` under th
 | Environment variables JSON schema | default (`{"properties":{},"required":[],"type":"object"}`) |
 | Placeholder parameters | `{}` |
 
-4. **Deploy**, wait for build + introspection (13 tools), then **Make Release** (`0.2.1`).
+4. **Deploy**, wait for build + introspection (14 tools), then **Make Release** (`0.2.2`).
 
 ## 3. Glama hosted connector
 

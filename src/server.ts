@@ -28,12 +28,12 @@ function stub() {
 
 export const server = new McpServer({
   name: "corroborate-me",
-  version: "0.2.1",
+  version: "0.2.2",
 });
 
 server.tool(
   "agent_bootstrap",
-  "Start zero-human company onboarding from a contact email. Does not charge or create a company. Step 1: call with contact_email. The result has verificationRequired=true and a 6-digit code is emailed (10 minutes, single use). Step 2: call again with contact_email and code. Returns bootstrapToken, expiresIn (~15 minutes), and next billing paths. When you have no aa_ key yet, use REST POST /api/agents/bootstrap instead: MCP requires Authorization Bearer aa_... or an MCP OAuth access token before any tool runs. After bootstrap, POST /api/billing/machine-pay (or billing_machine_pay / billing_checkout) with the bootstrap token; the company and aa_ secret are minted on settle. Optional company_name is stored on the bootstrap JWT for the company display name.",
+  "Start zero-human company onboarding from a contact email. Does not charge or create a company. Step 1: call with contact_email. The result has verificationRequired=true and a 6-digit code is emailed (10 minutes; up to a few guesses, single use on success). Step 2: call again with contact_email and code. Returns bootstrapToken, expiresIn (~15 minutes), and next billing paths. When you have no aa_ key yet, use REST POST /api/agents/bootstrap instead: MCP requires Authorization Bearer aa_... or an MCP OAuth access token before any tool runs. After bootstrap, POST /api/billing/machine-pay (or billing_machine_pay / billing_checkout) with the bootstrap token; the company and aa_ secret are minted on settle. Optional company_name is stored on the bootstrap JWT for the company display name.",
   {
     contact_email: z
       .string()
@@ -65,7 +65,7 @@ server.tool(
 
 server.tool(
   "budget_get",
-  "Read remaining quotas and plan entitlement for the authenticated company. Call this when you need to know whether an active plan is in effect before registering OIDC clients or creating login links. Minting an API key does not require an active plan. Requires a company API key (aa_...) or an MCP OAuth access token. Returns planId, planStatus, periodYm, included, used, remaining, and hardCap. It does not change billing or charge a card. To start a human Pro checkout, use billing_checkout. billing_machine_pay only returns prepaid REST instructions. To manage an existing Stripe subscription, use billing_portal.",
+  "Read remaining quotas and plan entitlement for the authenticated company. Call this when you need to know whether an active plan is in effect before registering OIDC clients or creating login links. Creating login links, minting extra API keys, and registering end users all require an active plan (the bootstrap key does not). Requires a company API key (aa_...) or an MCP OAuth access token. Returns planId, planStatus, periodYm, included, used, remaining, and hardCap. It does not change billing or charge a card. To start a human Pro checkout, use billing_checkout. billing_machine_pay only returns prepaid REST instructions. To manage an existing Stripe subscription, use billing_portal.",
   {},
   {
     title: "Read company budget",
@@ -79,8 +79,15 @@ server.tool(
 
 server.tool(
   "billing_checkout",
-  "Create a Stripe Checkout session for the authenticated company so a human can subscribe to Pro. Requires a company API key (aa_...) or an MCP OAuth access token. It does not accept a console session or a bootstrap token, and it does not mint a company or an aa_ secret. Returns url. Creating the session does not charge a card; the human pays on the Stripe page. When local billing bypass is enabled, there is no Stripe call and no charge: Pro is granted immediately with no period end, and url is the console success URL (/console?billing=ok), not a Stripe Checkout URL. If Stripe is not configured and bypass is off, the JSON includes error stripe_not_configured. For prepaid purchase instructions, use billing_machine_pay. To manage an existing subscription, use billing_portal.",
-  {},
+  "Create a Stripe Checkout session for the authenticated company so a human can subscribe to Pro, monthly or yearly (optional interval month or year). Requires a company API key (aa_...) or an MCP OAuth access token. It does not accept a console session or a bootstrap token, and it does not mint a company or an aa_ secret. Returns url. Creating the session does not charge a card; the human pays on the Stripe page. When local billing bypass is enabled, there is no Stripe call and no charge: Pro is granted immediately with no period end, and url is the console success URL (/console?billing=ok), not a Stripe Checkout URL. If Stripe is not configured and bypass is off, the JSON includes error stripe_not_configured. For prepaid purchase instructions, use billing_machine_pay. To manage an existing subscription, use billing_portal.",
+  {
+    interval: z
+      .enum(["month", "year"])
+      .optional()
+      .describe(
+        "month for $5.99 a month (default), year for $55 a year.",
+      ),
+  },
   {
     title: "Start Pro checkout",
     readOnlyHint: false,
@@ -247,7 +254,7 @@ server.tool(
 
 server.tool(
   "create_login_link",
-  "Mint a one-time human login URL and session id so you can prove an end user. Call webhook_allowlist_add first when using webhook, redirect, or form_post. Requires a company API key (aa_...) or an MCP OAuth access token and an active plan. A missing subscription returns an error result with code subscription_required (meter status 402). Exhausted quota returns code quota_exceeded (meter status 429). Too many creates can return code rate_limited. Returns ok, sessionId, loginUrl, expiresAt, methods, alwaysOn, and forceReauth. poll and sse are always included. Optional methods are webhook, redirect, post_message, and form_post. SMS is not offered. The default reuses the company cookie (Continue-as). Set force_reauth true, or reuse_session false, for a fresh login. When ttl_seconds is omitted, the link lasts 900 seconds. Poll with get_login_status using sessionId. If a webhook notify fails, use retry_login_webhook.",
+  "Mint a one-time human login URL and session id so you can prove an end user. Call webhook_allowlist_add first when using webhook, redirect, form_post or post_message. Requires a company API key (aa_...) or an MCP OAuth access token and an active plan. A missing subscription returns an error result with code subscription_required (meter status 402). Exhausted quota returns code quota_exceeded (meter status 429). Too many creates can return code rate_limited. Returns ok, sessionId, loginUrl, expiresAt, methods, alwaysOn, and forceReauth. poll and sse are always included. Optional methods are webhook, redirect, post_message, and form_post. SMS is not offered. The default reuses the company cookie (Continue-as). Set force_reauth true, or reuse_session false, for a fresh login. When ttl_seconds is omitted, the link lasts 900 seconds. Poll with get_login_status using sessionId. If a webhook notify fails, use retry_login_webhook.",
   {
     methods: z
       .array(
@@ -363,7 +370,7 @@ server.tool(
 
 server.tool(
   "webhook_allowlist_add",
-  "Allow a callback URL prefix for later login-link notify. Call this before create_login_link when methods include webhook, redirect, or form_post. Requires a company API key (aa_...) or an MCP OAuth access token. Pass url_prefix, at least 4 characters, for example https://hooks.example.com/ or cursor://. Returns ok true. Adding the same prefix again has no further effect. A shorter prefix returns ok false with code invalid_prefix. Callbacks outside an allowlisted prefix make create_login_link return an error with code not_allowlisted, or allowlist_empty when no prefix is stored. This call does not send a webhook.",
+  "Allow a callback URL prefix for later login-link notify. Call this before create_login_link when methods include webhook, redirect, form_post or post_message. Requires a company API key (aa_...) or an MCP OAuth access token. Pass url_prefix, at least 4 characters, for example https://hooks.example.com/ or cursor://. Returns ok true. Adding the same prefix again has no further effect. A shorter prefix returns ok false with code invalid_prefix. Callbacks outside an allowlisted prefix make create_login_link return an error with code not_allowlisted, or allowlist_empty when no prefix is stored. This call does not send a webhook.",
   {
     url_prefix: z
       .string()
